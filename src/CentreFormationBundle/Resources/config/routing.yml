@@ -1,0 +1,11 @@
+centre_formation_accueil:
+    path:     /centre/accueil
+    defaults: { _controller: CentreFormationBundle:Default:index }
+
+centre_formation_liste_formateurs:
+    path:     /centre/formateurs
+    defaults: { _controller: CentreFormationBundle:Default:formateurs }
+
+centre_formation_ajout_formateur:
+    path:     /centre/formateurs/add
+    defaults: { _controller: CentreFormationBundle:Default:addFormateur }

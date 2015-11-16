@@ -14,5 +14,9 @@ _errors:
     resource: "@TwigBundle/Resources/config/routing/errors.xml"
     prefix:   /_error
 
+centre_formation:
+    resource: "@CentreFormationBundle/Resources/config/routing.yml"
+    prefix:   /centre
+
 _main:
     resource: routing.yml

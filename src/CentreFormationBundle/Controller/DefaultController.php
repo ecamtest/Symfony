@@ -5,6 +5,7 @@ namespace CentreFormationBundle\Controller;
 use CentreFormationBundle\Entity\Formateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {
@@ -15,7 +16,12 @@ class DefaultController extends Controller
 
     public function formateursAction()
     {
-    	return $this->render('CentreFormationBundle:Show:formateurs.html.twig');
+        $listeFormateurs = $this
+            ->getDoctrine()
+            ->getRepository('CentreFormationBundle:Formateur')
+            ->findAll();
+
+    	return $this->render('CentreFormationBundle:Show:formateurs.html.twig', compact('listeFormateurs'));
     }
 
     public function addFormateurAction(Request $request)
@@ -37,6 +43,8 @@ class DefaultController extends Controller
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($formateur);
     		$em->flush();
+
+            return $this->redirect($this->generateUrl('/'));
     	}
 
     	return $this->render('CentreFormationBundle:Add:formateur.html.twig', array('form' => $form->createView()));

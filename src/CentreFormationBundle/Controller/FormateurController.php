@@ -7,31 +7,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class DefaultController extends Controller
+class FormateurController extends Controller
 {
-    public function indexAction()
+    public function listeAction()
     {
-        return $this->render('CentreFormationBundle:Show:accueil.html.twig');
-    }
-
-    public function formateursAction()
-    {
-        $listeFormateurs = $this
+        $liste = $this
             ->getDoctrine()
             ->getRepository('CentreFormationBundle:Formateur')
             ->findAll();
 
-    	return $this->render('CentreFormationBundle:Show:formateurs.html.twig', compact('listeFormateurs'));
+        // onglet actif
+        $activeTab = 'formateurs';
+
+    	return $this->render('CentreFormationBundle:formateurs:liste.html.twig', compact('liste', 'activeTab'));
     }
 
-    public function addFormateurAction(Request $request)
+    public function addAction(Request $request)
     {
     	$formateur = new Formateur();
 
     	$form = $this->createFormBuilder($formateur)
     		->add('nom', 'text')
-    		->add('prenom', 'text')
-    		->add('gsm', 'text')
+    		->add('prenom', 'text', array( 'label' => 'Prénom' ))
+    		->add('gsm', 'text', array( 'label' => 'GSM' ))
     		->add('email', 'email')
     		->add('Ajouter', 'submit')
     		->getForm();
@@ -44,9 +42,13 @@ class DefaultController extends Controller
     		$em->persist($formateur);
     		$em->flush();
 
-            return $this->redirect($this->generateUrl('/'));
+            return $this->redirect($this->generateUrl('_formateurs'));
     	}
 
-    	return $this->render('CentreFormationBundle:Add:formateur.html.twig', array('form' => $form->createView()));
+        $formCreateView = $form->createView();
+        // onglet actif
+        $activeTab = 'formateurs';
+
+    	return $this->render('CentreFormationBundle:formateurs:create.html.twig', compact('formCreateView', 'activeTab'));
     }
 }

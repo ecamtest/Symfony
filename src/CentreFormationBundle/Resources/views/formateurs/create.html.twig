@@ -1,0 +1,14 @@
+{% extends "CentreFormationBundle::Templates/layout.html.twig" %}
+
+{% block title %}Ajouter formateur{% endblock %}
+
+	{% block body %}
+
+		<div class="well">
+			{{ form(formCreateView) }}
+		</div>
+		<a href="javascript:history.back()" class="btn btn-primary">
+			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+		</a>
+
+	{% endblock %}

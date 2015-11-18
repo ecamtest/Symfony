@@ -3,17 +3,62 @@
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %}OC Plateforme{% endblock %}</title>
+
 	{% block stylesheets %}
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+		<style>
+			@-moz-document url-prefix() {
+				fieldset {
+					display: table-cell;
+				}
+			}
+			html * {
+				outline: 0 !important;
+			}
+		</style>
 	{% endblock %}
+	
 </head>
 <body>
-	{% block body %}
-	{% endblock %}
+	<div class="container">
+		<img src="{{ asset('bundles/centreformation/images/ecam.bmp') }}" width="300px" height="221px" alt="ECAM" />
+		<ul class="nav nav-tabs">
+			<li role="presentation" {% if activeTab == 'accueil' %} class="active" {% endif %}><a href="{{ path('_accueil') }}">Accueil</a></li>
+			<li role="presentation" {% if activeTab == 'formations' %} class="active" {% endif %}><a href="#">Formations</a></li>
+			<li role="presentation" {% if activeTab == 'formateurs' %} class="active" {% endif %}><a href="{{ path('_formateurs') }}">Formateurs</a></li>
+			<li role="presentation" {% if activeTab == 'remunerations' %} class="active" {% endif %}><a href="#">Rémunérations</a></li>
+		</ul>
 
+		{% block body %}
+		{% endblock %}
+	</div>
 	{% block javascripts %}
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			// This script fixes the shift that occurs in a centered layout
+			// when the page grows and forces scrollbars to appear.
+			$(function () {
+				var body = $("body");
+
+				var previousWidth = null;
+
+				var resizeBody = function () {
+					var currentWidth = body.width();
+					if (currentWidth != previousWidth) {
+						previousWidth = currentWidth;
+
+						body.css("overflow", "hidden");
+						var scrollBarWidth = body.width() - currentWidth;
+						body.css("overflow", "auto");
+
+						body.css("margin-left", scrollBarWidth + "px");
+					}
+				};
+				setInterval(resizeBody, 100);
+				resizeBody();
+			});
+		</script>
 	{% endblock %}
 </body>
 </html>

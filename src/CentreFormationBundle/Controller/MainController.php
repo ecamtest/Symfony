@@ -14,6 +14,6 @@ class MainController extends Controller
         // onglet actif
         $activeTab = 'accueil';
 
-        return $this->render('CentreFormationBundle:main:accueil.html.twig', compact('activeTab'));
+        return $this->render('CentreFormationBundle:accueil:accueil.html.twig', compact('activeTab'));
     }
 }

@@ -17,3 +17,21 @@ _formateurs_edit:
 _formateurs_delete:
     path: /formateurs/delete/{id}
     defaults: { _controller: CentreFormationBundle:Formateur:delete}
+    methods: POST
+
+_formations:
+    path: /formations/
+    defaults: { _controller: CentreFormationBundle:Formation:show }
+
+_formations_add:
+    path: /formations/add/
+    defaults: { _controller: CentreFormationBundle:Formation:add }
+
+_formations_edit:
+    path: /formations/edit/{id}
+    defaults: { _controller: CentreFormationBundle:Formation:edit}
+
+_formations_delete:
+    path: /formations/delete/{id}
+    defaults: { _controller: CentreFormationBundle:Formation:delete}
+    methods: POST

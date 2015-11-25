@@ -155,9 +155,4 @@ class Formateur
     {
         return $this->email;
     }
-
-    public function __toString()
-    {
-        return $this->prenom . ' ' . $this->nom;
-    }
 }

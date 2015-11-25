@@ -2,42 +2,42 @@
 
 namespace CentreFormationBundle\Controller;
 
-use CentreFormationBundle\Entity\Formateur;
+use CentreFormationBundle\Entity\Formation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class FormateurController extends Controller
+class FormationController extends Controller
 {
-    // onglet actif
-    protected $activeTab= 'formateurs';
+	// onglet actif
+    protected $activeTab= 'formations';
 
     public function showAction()
     {
         $liste = $this
             ->getDoctrine()
-            ->getRepository('CentreFormationBundle:Formateur')
+            ->getRepository('CentreFormationBundle:Formation')
             ->findAll();
 
         $activeTab = $this->activeTab;
-    	return $this->render('CentreFormationBundle:formateurs:show.html.twig', compact('liste', 'activeTab'));
+    	return $this->render('CentreFormationBundle:formations:show.html.twig', compact('liste', 'activeTab'));
     }
 
     public function addAction(Request $request)
     {
-    	$formateur = new Formateur();
+    	$formation = new Formation();
 
-    	$form = $this->formCreate($formateur, 'Créer');
+    	$form = $this->formCreate($formation, 'Créer');
 
     	$form->handleRequest($request);
-    	$formateur = $form->getData();
+    	$formation = $form->getData();
 
     	if ($form->isValid()){
     		$em = $this->getDoctrine()->getManager();
-    		$em->persist($formateur);
+    		$em->persist($formation);
     		$em->flush();
 
-            return $this->redirect($this->generateUrl('_formateurs'));
+            return $this->redirect($this->generateUrl('_formations'));
     	}
 
         $formCreateView = $form->createView();
@@ -48,25 +48,25 @@ class FormateurController extends Controller
 
     public function editAction($id, Request $request)
     {
-        $formateur = $this
+        $formation = $this
             ->getDoctrine()
-            ->getRepository('CentreFormationBundle:Formateur')
+            ->getRepository('CentreFormationBundle:Formation')
             ->find($id);
 
-        if($formateur == null)
-        	return $this->redirect($this->generateUrl('_formateurs'));
-        
-        $form = $this->formCreate($formateur, 'Modifier');
+        if($formation == null)
+            return $this->redirect($this->generateUrl('_formations'));
+
+        $form = $this->formCreate($formation, 'Modifier');
 
         $form->handleRequest($request);
         $formateur = $form->getData();
 
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
-            $em->persist($formateur);
+            $em->persist($formation);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('_formateurs'));
+            return $this->redirect($this->generateUrl('_formations'));
         }
 
         $formCreateView = $form->createView(); 
@@ -77,36 +77,26 @@ class FormateurController extends Controller
 
     public function deleteAction($id)
     {
-        $formateur = $this
-            ->getDoctrine()
-            ->getRepository('CentreFormationBundle:Formateur')
-            ->find($id);
-
-        $formations = $this
+        $formation = $this
             ->getDoctrine()
             ->getRepository('CentreFormationBundle:Formation')
-            ->findByFormateur($id);   
+            ->find($id);
 
         $em = $this->getDoctrine()->getManager();
-
-        foreach ($formations as $formation) {
-        	$em->remove($formation);
-        }
-        
-        $em->remove($formateur);
+        $em->remove($formation);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('_formateurs'));
+        return $this->redirect($this->generateUrl('_formations'));
     }
 
     // Génération du formulaire formateur
-    protected function formCreate($formateur, $buttonLabel)
+    protected function formCreate($formation, $buttonLabel)
     {
-        return $form = $this->createFormBuilder($formateur)
-            ->add('nom', 'text')
-            ->add('prenom', 'text', array( 'label' => 'Prénom' ))
-            ->add('gsm', 'text', array( 'label' => 'GSM' ))
-            ->add('email', 'email')
+        return $form = $this->createFormBuilder($formation)
+            ->add('libelle', 'text', array( 'label' => 'Libellé' ))
+            ->add('date', 'date')
+            ->add('duree', 'number', array( 'label' => 'Durée', 'attr' => array('min' => 1, 'max' => 24)))
+            ->add('formateur', 'entity', array('class' => 'CentreFormationBundle:Formateur'))
             ->add($buttonLabel, 'submit', array( 'label' => $buttonLabel))
             ->getForm();
     }

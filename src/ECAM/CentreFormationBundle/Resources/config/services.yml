@@ -1,4 +1,0 @@
-services:
-#    ecam_centre_formation.example:
-#        class: ECAM\CentreFormationBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]

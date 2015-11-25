@@ -1,0 +1,47 @@
+{% extends "CentreFormationBundle::templates/layout.html.twig" %}
+
+{% block title %}Formations{% endblock %}
+
+{% block body %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 style="margin-bottom: 50px">Liste des formations</h1>
+    <p><a href="{{ path('_formations_add') }}" class="btn btn-primary" role="button">Ajouter une formation</a></p>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <th class="text-center">Action</th>
+        <th>Libellé</th>
+        <th>Date</th>
+        <th>Durée (h)</th>
+        <th>Formateur</th>
+      </thead>
+      <tbody>
+
+        {% for formation in liste %}
+
+        <tr>
+          <td class="text-center">
+            <form action="{{ path('_formations_edit', { 'id': formation.id }) }}" method="get" style="display:inline-block">
+              <button type="submit" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></button>
+            </form>
+            <form action="{{ path('_formations_delete', { 'id' : formation.id }) }}" method="post" style="display:inline-block">
+              <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cette formation ?')"><span class="glyphicon glyphicon-remove"></span></button>
+            </form>
+          </td>
+          <td>{{ formation.libelle }}</td>
+          <td>{{ formation.date|date('d/m/Y') }}</td>
+          <td>{{ formation.duree }}</td>
+          <td>{{ formation.formateur }}</td>
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

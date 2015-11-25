@@ -1,3 +1,0 @@
-ecam_centre_formation_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: ECAMCentreFormationBundle:Default:index }

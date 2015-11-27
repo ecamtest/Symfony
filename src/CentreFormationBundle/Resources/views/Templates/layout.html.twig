@@ -37,6 +37,10 @@
 					height: 40px;
 				}
 			}
+			.aucunFormateur {
+				font-style: italic;
+				color: red;
+			}
 		</style>
 	{% endblock %}
 
@@ -59,7 +63,7 @@
 					<li {% if activeTab == 'accueil' %} class="active" {% endif %}><a href="{{ path('_accueil') }}">Accueil</a></li>
 					<li {% if activeTab == 'formations' %} class="active" {% endif %}><a href="{{ path('_formations') }}">Formations</a></li>
 					<li {% if activeTab == 'formateurs' %} class="active" {% endif %}><a href="{{ path('_formateurs') }}">Formateurs</a></li>
-					<li {% if activeTab == 'remunerations' %} class="active" {% endif %}><a href="#">Rémunérations</a></li>
+					<li {% if activeTab == 'remunerations' %} class="active" {% endif %}><a href="{{ path('_remunerations') }}">Rémunérations</a></li>
 				</ul>
 			</div>
 		</div>

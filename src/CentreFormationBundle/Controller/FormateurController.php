@@ -90,7 +90,7 @@ class FormateurController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         foreach ($formations as $formation) {
-        	$em->remove($formation);
+        	$formation->setFormateur(null);
         }
         
         $em->remove($formateur);

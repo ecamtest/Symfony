@@ -94,9 +94,9 @@ class FormationController extends Controller
     {
         return $form = $this->createFormBuilder($formation)
             ->add('libelle', 'text', array( 'label' => 'Libellé' ))
-            ->add('date', 'date')
+            ->add('date', 'date', array('placeholder' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'), 'years' => array(2015, 2016, 2017, 2018, 2019, 2020)))
             ->add('duree', 'number', array( 'label' => 'Durée', 'attr' => array('min' => 1, 'max' => 24)))
-            ->add('formateur', 'entity', array('class' => 'CentreFormationBundle:Formateur'))
+            ->add('formateur', 'entity', array('class' => 'CentreFormationBundle:Formateur', 'required' => false, 'placeholder' => 'Aucun', 'empty_data'  => null))
             ->add($buttonLabel, 'submit', array( 'label' => $buttonLabel))
             ->getForm();
     }

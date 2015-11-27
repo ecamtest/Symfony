@@ -35,3 +35,7 @@ _formations_delete:
     path: /formations/delete/{id}
     defaults: { _controller: CentreFormationBundle:Formation:delete}
     methods: POST
+
+_remunerations:
+    path: /remunerations/
+    defaults: { _controller: CentreFormationBundle:Main:remunerations}

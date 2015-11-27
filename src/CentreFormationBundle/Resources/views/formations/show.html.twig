@@ -34,7 +34,13 @@
           <td>{{ formation.libelle }}</td>
           <td>{{ formation.date|date('d/m/Y') }}</td>
           <td>{{ formation.duree }}</td>
+
+          {% if formation.formateur %}
           <td>{{ formation.formateur }}</td>
+          {% else %}
+          <td class='aucunFormateur'>Aucun</td>
+          {% endif %}
+          
         </tr>
 
         {% endfor %}

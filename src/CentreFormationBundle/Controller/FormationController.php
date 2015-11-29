@@ -37,6 +37,16 @@ class FormationController extends Controller
     		$em->persist($formation);
     		$em->flush();
 
+            if($formation->getFormateur() != null)
+            {
+                $formateur = $this
+                    ->getDoctrine()
+                    ->getRepository('CentreFormationBundle:Formateur')
+                    ->find($formation->getFormateur());
+
+                $this->sendEmail($formation, $formateur);
+            }
+
             return $this->redirect($this->generateUrl('_formations'));
     	}
 
@@ -92,12 +102,31 @@ class FormationController extends Controller
     // Génération du formulaire formateur
     protected function formCreate($formation, $buttonLabel)
     {
+        $years = array();
+        $currentYear = intval(date('Y'));
+        for($i=0; $i<6; $i++)
+        {
+            $years[] = $currentYear+$i;
+        }
+
         return $form = $this->createFormBuilder($formation)
             ->add('libelle', 'text', array( 'label' => 'Libellé' ))
-            ->add('date', 'date', array('placeholder' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'), 'years' => array(2015, 2016, 2017, 2018, 2019, 2020)))
+            ->add('date', 'date', array('placeholder' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'), 'years' => $years))
             ->add('duree', 'number', array( 'label' => 'Durée', 'attr' => array('min' => 1, 'max' => 24)))
             ->add('formateur', 'entity', array('class' => 'CentreFormationBundle:Formateur', 'required' => false, 'placeholder' => 'Aucun', 'empty_data'  => null))
             ->add($buttonLabel, 'submit', array( 'label' => $buttonLabel))
             ->getForm();
+    }
+
+    //Envoi d'un email si une formation est associé à un formateur
+    protected function sendEmail($formation, $formateur)
+    {
+        $message = \Swift_Message::newInstance()
+        ->setSubject($formation->getLibelle())
+        ->setFrom('info@centreformations.com')
+        ->setTo($formateur->getEmail())
+        ->setBody($formation->getLibelle());
+
+        $this->get('mailer')->send($message);
     }
 }

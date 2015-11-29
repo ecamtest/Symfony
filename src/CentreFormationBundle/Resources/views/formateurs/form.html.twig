@@ -1,0 +1,12 @@
+{% extends "CentreFormationBundle::templates/layout.html.twig" %}
+
+	{% block body %}
+
+		<div class="well">
+			{{ form(formCreateView) }}
+		</div>
+		<a href="javascript:history.back()" class="btn btn-primary">
+			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+		</a>
+
+	{% endblock %}

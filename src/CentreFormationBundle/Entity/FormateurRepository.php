@@ -13,6 +13,7 @@ use Doctrine\ORM\QueryBuilder;
  */
 class FormateurRepository extends EntityRepository
 {
+	//Liste des formateurs avec le calcul de leur rémunération totale
 	public function getRemunerationList($prix)
 	{
 		$query = $this->_em->createQuery('SELECT formateur.nom, formateur.prenom, sum(formation.duree)*:prix as remuneration FROM CentreFormationBundle:Formation formation INNER JOIN CentreFormationBundle:Formateur formateur WITH formation.formateur = formateur.id GROUP BY formation.formateur')
@@ -20,4 +21,5 @@ class FormateurRepository extends EntityRepository
 
 		return $query->getResult();
 	}
+
 }

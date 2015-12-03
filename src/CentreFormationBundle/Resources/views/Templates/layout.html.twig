@@ -4,46 +4,8 @@
 	<meta charset="utf-8">
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="shortcut icon" href="{{ asset('bundles/centreformation/images/ecam.gif') }}" />
-	
-	{% block stylesheets %}
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-		<style>
-			body {
-				padding-top: 130px;
-			}
-			@-moz-document url-prefix() {
-				fieldset {
-					display: table-cell;
-				}
-			}
-			html * {
-				outline: 0 !important;
-			}
-			button.navbar-toggle {
-				margin-top: 33px;
-			}
-			.navbar-brand,
-			.navbar-nav li a {
-				line-height: 100px;
-				height: 100px;
-				padding-top: 0;
-			}
-			nav > .container {
-				width:98%;
-			}
-			@media (max-width: 767px) {
-				.navbar-nav > li > a {
-					line-height: 20px;
-					padding-top: 10px;
-					height: 40px;
-				}
-			}
-			.aucunFormateur {
-				font-style: italic;
-				color: red;
-			}
-		</style>
-	{% endblock %}
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="{{ asset('bundles/centreformation/css/style.css') }}"/>
 
 </head>
 <body>
@@ -75,35 +37,8 @@
 		{% endblock %}
 
 	</div>
-
-	{% block javascripts %}
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			// This script fixes the shift that occurs in a centered layout
-			// when the page grows and forces scrollbars to appear.
-			$(function () {
-				var body = $("body");
-
-				var previousWidth = null;
-
-				var resizeBody = function () {
-					var currentWidth = body.width();
-					if (currentWidth != previousWidth) {
-						previousWidth = currentWidth;
-
-						body.css("overflow", "hidden");
-						var scrollBarWidth = body.width() - currentWidth;
-						body.css("overflow", "auto");
-
-						body.css("margin-left", scrollBarWidth + "px");
-					}
-				};
-				setInterval(resizeBody, 100);
-				resizeBody();
-			});
-		</script>
-	{% endblock %}
-
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="{{ asset('bundles/centreformation/js/script.css') }}"></script>
 </body>
 </html>

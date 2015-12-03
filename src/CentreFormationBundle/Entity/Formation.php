@@ -4,6 +4,8 @@ namespace CentreFormationBundle\Entity;
 
 use CentreFormationBundle\Entity\Formateur;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Formation
@@ -154,5 +156,13 @@ class Formation
     public function getFormateur()
     {
         return $this->formateur;
+    }
+
+    //Vérifie 
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('duree', new Assert\Regex(array(
+            'pattern' => '/^[1-9]$/',
+        )));
     }
 }

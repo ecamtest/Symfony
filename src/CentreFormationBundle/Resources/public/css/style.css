@@ -1,0 +1,34 @@
+body {
+				padding-top: 130px;
+			}
+			@-moz-document url-prefix() {
+				fieldset {
+					display: table-cell;
+				}
+			}
+			html * {
+				outline: 0 !important;
+			}
+			button.navbar-toggle {
+				margin-top: 33px;
+			}
+			.navbar-brand,
+			.navbar-nav li a {
+				line-height: 100px;
+				height: 100px;
+				padding-top: 0;
+			}
+			nav > .container {
+				width:98%;
+			}
+			@media (max-width: 767px) {
+				.navbar-nav > li > a {
+					line-height: 20px;
+					padding-top: 10px;
+					height: 40px;
+				}
+			}
+			.aucunFormateur {
+				font-style: italic;
+				color: red;
+			}

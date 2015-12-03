@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<p>Bonjour {{ formateur.getPrenom() }},</p>
+	<p>Nous vous informons qu'une nouvelle formation vous a été attribuée :</p>
+	<p>
+		<strong>{{ formation.getLibelle() }}</strong><br>
+		Date : {{ formation.getDate()|date('d/m/Y') }}<br>
+		Durée : {{ formation.getDuree() }} h<br>
+	</p>
+	<p>Cordialement,</p>
+	<p>Le centre de formation</p>
+</body>
+</html>

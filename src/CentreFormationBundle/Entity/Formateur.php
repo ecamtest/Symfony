@@ -3,6 +3,8 @@
 namespace CentreFormationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Formateur
@@ -156,8 +158,17 @@ class Formateur
         return $this->email;
     }
 
+    //Prénom + Nom
     public function __toString()
     {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    //Validation d'un numéro de GSM. Ex : 0123 45 67 89 ou 012345 67 89 ou ...
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('gsm', new Assert\Regex(array(
+            'pattern' => '/^\s?(\d{4})\s?(\d{2})\s?(\d{2})\s?(\d{2})\s?$/i',
+        )));
     }
 }
